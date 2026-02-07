@@ -230,7 +230,7 @@ async function submit(){
   $('ld').classList.add('show');
 
   try{
-    await fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    await fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(data)});
     $('ld').classList.remove('show');
     $('FA').style.display='none';
     $('OK').classList.add('show');
