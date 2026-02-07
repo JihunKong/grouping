@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎲 코칭아카데미 팀 매칭 설문</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Black+Han+Sans&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF8F0;--card:#FFF;--primary:#FF6B35;--pl:#FFE8DD;--sec:#004E89;--sl:#E3F0FF;--acc:#2EC4B6;--al:#E0FAF7;--txt:#1A1A2E;--muted:#6B7280;--bdr:#E5E7EB}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh}
+body::before{content:'';position:fixed;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(255,107,53,.08) 0%,transparent 70%);pointer-events:none}
+body::after{content:'';position:fixed;bottom:-200px;left:-200px;width:500px;height:500px;background:radial-gradient(circle,rgba(46,196,182,.08) 0%,transparent 70%);pointer-events:none}
+.wrap{max-width:680px;margin:0 auto;padding:40px 20px 80px;position:relative;z-index:1}
+.hdr{text-align:center;margin-bottom:36px}
+.badge{display:inline-block;background:var(--sec);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:100px;letter-spacing:1px;margin-bottom:14px}
+.hdr h1{font-family:'Black Han Sans',sans-serif;font-size:38px;background:linear-gradient(135deg,var(--primary),var(--sec));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.hdr p{font-size:14px;color:var(--muted);line-height:1.6}
+.cnt{text-align:center;margin-bottom:28px}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--sl);color:var(--sec);font-size:13px;font-weight:700;padding:7px 18px;border-radius:100px}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:#10B981;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.card{background:var(--card);border-radius:16px;padding:30px;box-shadow:0 4px 24px rgba(0,0,0,.06);margin-bottom:18px}
+.stag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--primary);margin-bottom:18px}
+.stag::after{content:'';width:36px;height:2px;background:var(--primary);border-radius:2px}
+.fg{margin-bottom:22px}.fg:last-child{margin-bottom:0}
+.fg>label{display:block;font-weight:700;font-size:15px;margin-bottom:3px}
+.hint{font-size:13px;color:var(--muted);margin-bottom:9px;line-height:1.4}
+input[type="text"],textarea{width:100%;padding:12px 14px;border:2px solid var(--bdr);border-radius:12px;font-family:'Noto Sans KR',sans-serif;font-size:15px;background:#FAFAFA;color:var(--txt);transition:all .2s}
+input[type="text"]:focus,textarea:focus{outline:none;border-color:var(--primary);background:#fff;box-shadow:0 0 0 4px rgba(255,107,53,.1)}
+textarea{resize:vertical;min-height:68px}
+.og{display:grid;gap:9px}
+.og.auto{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
+.og.c2{grid-template-columns:1fr 1fr}
+.og.c3{grid-template-columns:repeat(3,1fr)}
+.og.c4{grid-template-columns:repeat(4,1fr)}
+.og.mbti{grid-template-columns:repeat(auto-fill,minmax(70px,1fr))}
+.oi{position:relative}.oi input{position:absolute;opacity:0;width:0;height:0}
+.oi label{display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 8px;border:2px solid var(--bdr);border-radius:12px;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;background:#FAFAFA;min-height:44px;line-height:1.3;user-select:none}
+.oi label:hover{border-color:#D1D5DB;background:#F3F4F6}
+.oi input[type="radio"]:checked+label{border-color:var(--primary);background:var(--pl);color:var(--primary);font-weight:700}
+.oi input[type="checkbox"]:checked+label{border-color:var(--acc);background:var(--al);color:#0D9488;font-weight:700}
+.rw{display:flex;align-items:center;gap:14px}
+.rw input[type="range"]{flex:1;-webkit-appearance:none;height:8px;border-radius:4px;background:linear-gradient(to right,var(--acc),var(--primary));outline:none}
+.rw input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;border-radius:50%;background:#fff;border:3px solid var(--primary);cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.rv{font-size:20px;font-weight:900;color:var(--primary);min-width:40px;text-align:center}
+.rl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:5px}
+.btn{display:block;width:100%;padding:16px;border:none;border-radius:14px;font-family:'Noto Sans KR',sans-serif;font-size:17px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--primary),#E85D2A);color:#fff;box-shadow:0 6px 20px rgba(255,107,53,.3);transition:all .3s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(255,107,53,.4)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--txt);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:1000;transition:transform .4s cubic-bezier(.16,1,.3,1);white-space:nowrap}
+.toast.show{transform:translateX(-50%) translateY(0)}.toast.err{background:#DC2626}.toast.ok{background:#059669}
+.ld{display:none;position:fixed;inset:0;background:rgba(255,248,240,.88);z-index:999;justify-content:center;align-items:center;flex-direction:column;gap:14px}.ld.show{display:flex}
+.sp{width:44px;height:44px;border:4px solid var(--bdr);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ok-screen{display:none;text-align:center;padding:80px 24px}
+.ok-screen.show{display:block;animation:fu .5s ease}
+.ok-screen h2{font-family:'Black Han Sans',sans-serif;font-size:30px;color:var(--primary);margin:14px 0 10px}
+.ok-screen p{font-size:15px;color:var(--muted);line-height:1.6;margin-bottom:24px}
+.rbtn{display:inline-block;padding:12px 26px;border:2px solid var(--primary);border-radius:12px;background:#fff;color:var(--primary);font-family:'Noto Sans KR',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.rbtn:hover{background:var(--pl)}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:640px){.wrap{padding:24px 16px 60px}.hdr h1{font-size:28px}.card{padding:22px 18px}.og.auto,.og.c2{grid-template-columns:1fr 1fr}.og.c4{grid-template-columns:1fr 1fr}.og.mbti{grid-template-columns:repeat(auto-fill,minmax(62px,1fr))}}
+</style>
+</head>
+<body>
+<div class="ld" id="ld"><div class="sp"></div><div style="font-size:15px;font-weight:600">응답을 전송 중입니다...</div></div>
+<div class="wrap">
+  <div class="hdr">
+    <div class="badge">2026 미래교육 코칭아카데미</div>
+    <h1>🎲 팀 매칭 설문</h1>
+    <p>편하게 답해주세요! 비슷한 성향의 선생님들과 한 팀이 됩니다 😊</p>
+  </div>
+  <div class="cnt"><span class="chip"><span class="dot"></span>현재 응답 <strong id="cn">?</strong>명 / 목표 19명</span></div>
+
+  <div id="FA">
+    <!-- 기본 정보 -->
+    <div class="card"><div class="stag">기본 정보</div>
+      <div class="fg"><label>🏷️ 별칭</label><div class="hint">본인만 알 수 있는 별칭 (이름 대신 사용)</div><input type="text" id="nick" placeholder="예: 바다코끼리, 별빛수학자"></div>
+      <div class="fg"><label>📍 근무 지역</label>
+        <div class="og auto">
+          <div class="oi"><input type="radio" name="region" id="r1" value="목포·무안·신안"><label for="r1">목포·무안·신안</label></div>
+          <div class="oi"><input type="radio" name="region" id="r2" value="여수·순천·광양"><label for="r2">여수·순천·광양</label></div>
+          <div class="oi"><input type="radio" name="region" id="r3" value="나주·화순·담양"><label for="r3">나주·화순·담양</label></div>
+          <div class="oi"><input type="radio" name="region" id="r4" value="해남·완도·강진·장흥"><label for="r4">해남·완도·강진·장흥</label></div>
+          <div class="oi"><input type="radio" name="region" id="r5" value="영암·영광·함평·장성"><label for="r5">영암·영광·함평·장성</label></div>
+          <div class="oi"><input type="radio" name="region" id="r6" value="곡성·구례·보성·고흥"><label for="r6">곡성·구례·보성·고흥</label></div>
+          <div class="oi"><input type="radio" name="region" id="r7" value="진도·기타 도서"><label for="r7">진도·기타 도서</label></div>
+          <div class="oi"><input type="radio" name="region" id="r8" value="광주광역시"><label for="r8">광주광역시</label></div>
+        </div>
+      </div>
+      <div class="fg"><label>🧠 MBTI</label><div class="hint">모르시면 '모름' 선택</div>
+        <div class="og mbti">
+          <div class="oi"><input type="radio" name="mbti" id="mb0" value="모름"><label for="mb0">모름</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb1" value="INTJ"><label for="mb1">INTJ</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb2" value="INTP"><label for="mb2">INTP</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb3" value="ENTJ"><label for="mb3">ENTJ</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb4" value="ENTP"><label for="mb4">ENTP</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb5" value="INFJ"><label for="mb5">INFJ</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb6" value="INFP"><label for="mb6">INFP</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb7" value="ENFJ"><label for="mb7">ENFJ</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb8" value="ENFP"><label for="mb8">ENFP</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb9" value="ISTJ"><label for="mb9">ISTJ</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb10" value="ISFJ"><label for="mb10">ISFJ</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb11" value="ESTJ"><label for="mb11">ESTJ</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb12" value="ESFJ"><label for="mb12">ESFJ</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb13" value="ISTP"><label for="mb13">ISTP</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb14" value="ISFP"><label for="mb14">ISFP</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb15" value="ESTP"><label for="mb15">ESTP</label></div>
+          <div class="oi"><input type="radio" name="mbti" id="mb16" value="ESFP"><label for="mb16">ESFP</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 연구 성향 -->
+    <div class="card"><div class="stag">연구 성향</div>
+      <div class="fg"><label>🔬 관심 연구 영역</label><div class="hint">관심 있는 영역을 모두 선택 (복수 선택)</div>
+        <div class="og c2">
+          <div class="oi"><input type="checkbox" id="f1" value="학습자주도 수업"><label for="f1">📚 학습자주도 수업</label></div>
+          <div class="oi"><input type="checkbox" id="f2" value="AI·디지털 기반"><label for="f2">🤖 AI·디지털 기반</label></div>
+          <div class="oi"><input type="checkbox" id="f3" value="독서인문예술"><label for="f3">📖 독서·인문·예술</label></div>
+          <div class="oi"><input type="checkbox" id="f4" value="생태전환"><label for="f4">🌿 생태전환</label></div>
+          <div class="oi"><input type="checkbox" id="f5" value="민주시민교육"><label for="f5">🗳️ 민주시민교육</label></div>
+          <div class="oi"><input type="checkbox" id="f6" value="학생상담·생활지도"><label for="f6">💬 학생상담·생활지도</label></div>
+          <div class="oi"><input type="checkbox" id="f7" value="진로진학상담"><label for="f7">🎯 진로·진학상담</label></div>
+          <div class="oi"><input type="checkbox" id="f8" value="개념기반탐구학습"><label for="f8">🧩 개념기반탐구학습</label></div>
+        </div>
+      </div>
+      <div class="fg"><label>🎨 탐구 스타일</label>
+        <div class="og c3">
+          <div class="oi"><input type="radio" name="style" id="s1" value="이론탐구형"><label for="s1">📖 이론탐구형</label></div>
+          <div class="oi"><input type="radio" name="style" id="s2" value="현장실천형"><label for="s2">🔧 현장실천형</label></div>
+          <div class="oi"><input type="radio" name="style" id="s3" value="균형추구형"><label for="s3">⚖️ 균형추구형</label></div>
+        </div>
+      </div>
+      <div class="fg"><label>💻 디지털 도구 자신감</label>
+        <div class="rw"><input type="range" id="tech" min="1" max="5" value="3" oninput="document.getElementById('tv').textContent=this.value"><div class="rv" id="tv">3</div></div>
+        <div class="rl"><span>1 = 아직 낯설어요</span><span>5 = 자신 있어요!</span></div>
+      </div>
+    </div>
+
+    <!-- 운영 선호 -->
+    <div class="card"><div class="stag">운영 선호</div>
+      <div class="fg"><label>📅 모임 횟수</label>
+        <div class="og c4">
+          <div class="oi"><input type="radio" name="freq" id="fq1" value="월 1회"><label for="fq1">월 1회</label></div>
+          <div class="oi"><input type="radio" name="freq" id="fq2" value="월 2회"><label for="fq2">월 2회</label></div>
+          <div class="oi"><input type="radio" name="freq" id="fq3" value="월 3회"><label for="fq3">월 3회</label></div>
+          <div class="oi"><input type="radio" name="freq" id="fq4" value="월 4회 이상"><label for="fq4">월 4회+</label></div>
+        </div>
+      </div>
+      <div class="fg"><label>🖥️ 모임 방식</label>
+        <div class="og c3">
+          <div class="oi"><input type="radio" name="meet" id="mt1" value="오프라인"><label for="mt1">🏫 오프라인</label></div>
+          <div class="oi"><input type="radio" name="meet" id="mt2" value="온라인"><label for="mt2">💻 온라인</label></div>
+          <div class="oi"><input type="radio" name="meet" id="mt3" value="혼합"><label for="mt3">🔄 혼합</label></div>
+        </div>
+      </div>
+      <div class="fg"><label>⏰ 선호 시간대</label>
+        <div class="og c3">
+          <div class="oi"><input type="radio" name="time" id="tm1" value="방과후(평일)"><label for="tm1">방과후</label></div>
+          <div class="oi"><input type="radio" name="time" id="tm2" value="저녁(평일)"><label for="tm2">저녁</label></div>
+          <div class="oi"><input type="radio" name="time" id="tm3" value="주말"><label for="tm3">주말</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 재미 질문 -->
+    <div class="card"><div class="stag">재미 질문 ☕</div>
+      <div class="fg"><label>☕ 모임 간식 취향</label>
+        <div class="og c2">
+          <div class="oi"><input type="radio" name="snack" id="sn1" value="커피 마니아"><label for="sn1">☕ 커피가 곧 생명</label></div>
+          <div class="oi"><input type="radio" name="snack" id="sn2" value="달달한 디저트"><label for="sn2">🍰 달달한 디저트</label></div>
+          <div class="oi"><input type="radio" name="snack" id="sn3" value="건강 간식"><label for="sn3">🥗 건강한 간식</label></div>
+          <div class="oi"><input type="radio" name="snack" id="sn4" value="뭐든 OK"><label for="sn4">😋 뭐든 OK</label></div>
+        </div>
+      </div>
+      <div class="fg"><label>💪 팀에서 나의 역할</label>
+        <div class="og c2">
+          <div class="oi"><input type="radio" name="role" id="ro1" value="아이디어뱅크"><label for="ro1">💡 아이디어 뱅크</label></div>
+          <div class="oi"><input type="radio" name="role" id="ro2" value="실행력 대장"><label for="ro2">🚀 실행력 대장</label></div>
+          <div class="oi"><input type="radio" name="role" id="ro3" value="꼼꼼 정리왕"><label for="ro3">📋 꼼꼼 정리왕</label></div>
+          <div class="oi"><input type="radio" name="role" id="ro4" value="분위기 메이커"><label for="ro4">🎉 분위기 메이커</label></div>
+        </div>
+      </div>
+      <div class="fg"><label>📝 한 줄 소개</label><div class="hint">팀원들에게 하고 싶은 말을 자유롭게!</div><textarea id="intro" placeholder="예: 올해는 AI 수업 도전해보고 싶어요!"></textarea></div>
+    </div>
+
+    <button class="btn" id="sbtn" onclick="submit()">✨ 응답 제출하기</button>
+  </div>
+
+  <div class="ok-screen" id="OK">
+    <div style="font-size:64px">🎉</div>
+    <h2>제출 완료!</h2>
+    <p>응답이 저장되었습니다.<br>곧 멋진 팀이 구성될 거예요!</p>
+    <button class="rbtn" onclick="reset()">🔄 다른 분 작성하기</button>
+  </div>
+</div>
+<div class="toast" id="T"></div>
+
+<script>
+// =====================================================
+// ⬇️ 아래 URL을 Google Apps Script 웹앱 URL로 교체 ⬇️
+// =====================================================
+const URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+// =====================================================
+
+const $=s=>document.getElementById(s);
+const R=n=>document.querySelector(`input[name="${n}"]:checked`)?.value||'';
+const C=p=>[...document.querySelectorAll(`input[id^="${p}"]:checked`)].map(e=>e.value);
+
+function toast(m,t=''){const e=$('T');e.textContent=m;e.className='toast show'+(t?' '+t:'');setTimeout(()=>e.className='toast',3000)}
+
+async function loadCnt(){
+  if(URL.startsWith('YOUR_')){$('cn').textContent='?';return}
+  try{const r=await fetch(URL);const d=await r.json();$('cn').textContent=d.count??'?'}catch{$('cn').textContent='?'}
+}
+
+async function submit(){
+  const nick=$('nick').value.trim();
+  if(!nick){toast('⚠️ 별칭을 입력해주세요!','err');return}
+  if(!R('region')){toast('⚠️ 근무 지역을 선택해주세요!','err');return}
+  if(!C('f').length){toast('⚠️ 관심 연구 영역을 선택해주세요!','err');return}
+  if(URL.startsWith('YOUR_')){toast('⚠️ Script URL을 먼저 설정하세요!','err');return}
+
+  const data={별칭:nick,근무지역:R('region'),MBTI:R('mbti')||'미응답',관심영역:C('f').join(', '),탐구스타일:R('style')||'미응답',디지털자신감:$('tech').value,모임빈도:R('freq')||'미응답',모임방식:R('meet')||'미응답',선호시간대:R('time')||'미응답',간식취향:R('snack')||'미응답',팀역할:R('role')||'미응답',한줄소개:$('intro').value.trim()};
+
+  $('sbtn').disabled=true;
+  $('ld').classList.add('show');
+
+  try{
+    await fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    $('ld').classList.remove('show');
+    $('FA').style.display='none';
+    $('OK').classList.add('show');
+    loadCnt();
+  }catch{
+    $('ld').classList.remove('show');
+    $('sbtn').disabled=false;
+    toast('❌ 전송 실패! 네트워크 확인','err');
+  }
+}
+
+function reset(){
+  $('FA').style.display='block';$('OK').classList.remove('show');
+  $('sbtn').disabled=false;$('nick').value='';
+  document.querySelectorAll('input[type="radio"]:checked,input[type="checkbox"]:checked').forEach(e=>e.checked=false);
+  $('tech').value=3;$('tv').textContent='3';$('intro').value='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+loadCnt();
+</script>
+</body>
+</html>
